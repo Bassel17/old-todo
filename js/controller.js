@@ -9,7 +9,7 @@
 	 * @param {object} view The view instance
 	 */
 	function Controller(model, view) {
-		var self = this;
+		const self = this;
 		self.model = model;
 		self.view = view;
 
@@ -93,6 +93,10 @@
 	 * object and it'll handle the DOM insertion and saving of the new item.
 	 */
 	Controller.prototype.addItem = function (title) {
+		// ### START EDIT
+		// - fixed typo in the function name
+		// Controller.prototype.adddItem
+		// ### END EDIT
 		const self = this;
 
 		if (title.trim() === '') {

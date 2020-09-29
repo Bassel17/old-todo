@@ -75,8 +75,8 @@
 	 * @param {number} id An optional param to enter an ID of an item to update
 	 */
 	Store.prototype.save = function (updateData, callback, id) {
-		var data = JSON.parse(localStorage[this._dbName]);
-		var todos = data.todos;
+		const data = JSON.parse(localStorage[this._dbName]);
+		const todos = data.todos;
 
 		callback = callback || function () {};
 
@@ -137,21 +137,32 @@
 	 * @param {function} callback The callback to fire after saving
 	 */
 	Store.prototype.remove = function (id, callback) {
-		var data = JSON.parse(localStorage[this._dbName]);
-		var todos = data.todos;
-		var todoId;
+		const data = JSON.parse(localStorage[this._dbName]);
+		const todos = data.todos;
+		// ### START EDIT
+    	// - Redundant var
+    	// var todoId;
+    	// ### END EDIT
 		
-		for (var i = 0; i < todos.length; i++) {
+		for (let i = 0; i < todos.length; i++) {
 			if (todos[i].id == id) {
-				todoId = todos[i].id;
+				// ### START EDIT
+        		// - Redundant var
+        		// todoId = todos[i].id;
+        		// ### END EDIT
+
+        		todos.splice(i, 1);
 			}
 		}
 
-		for (var i = 0; i < todos.length; i++) {
-			if (todos[i].id == todoId) {
-				todos.splice(i, 1);
-			}
-		}
+		// ### START EDIT
+    	// - Redundant after moving splice to above for loop
+    	// for (var i = 0; i < todos.length; i++) {
+    	//   if (todos[i].id == todoId) {
+    	//     todos.splice(i, 1);
+    	//   }
+    	// }
+    	// ### END EDIT
 
 		localStorage[this._dbName] = JSON.stringify(data);
 		callback.call(this, todos);
@@ -163,7 +174,7 @@
 	 * @param {function} callback The callback to fire after dropping the data
 	 */
 	Store.prototype.drop = function (callback) {
-		var data = {todos: []};
+		const data = {todos: []};
 		localStorage[this._dbName] = JSON.stringify(data);
 		callback.call(this, data.todos);
 	};
